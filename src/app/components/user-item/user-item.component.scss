@@ -1,4 +1,4 @@
-@import 'ease/ease-import.scss';
+@import "ease/ease-import.scss";
 
 :host {
   .user-item {
@@ -44,6 +44,11 @@
       margin-left: 12px;
       text-align: right;
       width: 80px;
+    }
+
+    &:hover {
+      @include hover-row;
+      cursor: pointer;
     }
   }
 }

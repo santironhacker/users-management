@@ -1,0 +1,28 @@
+@import "ease/ease-import.scss";
+
+:host {
+  .user-group {
+    margin: 0 auto;
+    max-width: 60%;
+    padding: 12px;
+    background: linear-gradient(135deg, #e0d7fe 0%, #efdaf6 53%, #fdf3e9 100%);
+    background-color: #e0d7fe;
+
+    &__element {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      margin: 24px;
+      padding: 12px;
+
+      &__header {
+        padding: 12px;
+        color: $color-red-500;
+        background-color: $color-sky;
+        border-top-left-radius: 18px;
+        border-top-right-radius: 18px;
+      }
+    }
+  }
+}

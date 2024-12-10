@@ -6,14 +6,14 @@ import {
   signal,
 } from '@angular/core';
 import { take } from 'rxjs';
-import { UserListComponent } from './components/user-list/user-list.component';
+import { UserGroupComponent } from './components/user-group/user-group.component';
 import { User } from './models/user.model';
 import { UsersService } from './services/users.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [UserListComponent],
+  imports: [UserGroupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

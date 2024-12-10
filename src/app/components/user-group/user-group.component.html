@@ -1,0 +1,8 @@
+<article class="user-group">
+  @for (group of userGroups() | keyvalue; track $index) {
+    <div class="user-group__element">
+      <h3 class="user-group__element__header">{{ group.key }}</h3>
+      <app-user-list [users]="group.value" />
+    </div>
+  }
+</article>
