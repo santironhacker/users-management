@@ -4,6 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ApiResult } from '../models/api-result.model';
+import { DEFAULT_GROUP_OPTION_KEY } from '../models/group-options.model';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -14,7 +15,7 @@ export class UsersService {
   private users = toSignal<User[], User[]>(this.getUsers(), {
     initialValue: [] as User[],
   });
-  private groupingCriterion = signal<string | null>(null);
+  private groupingCriterion = signal<string>(DEFAULT_GROUP_OPTION_KEY);
   userGroups: WritableSignal<Record<string, User[]>> = signal({});
 
   constructor(private httpClient: HttpClient) {}
@@ -44,8 +45,10 @@ export class UsersService {
   }
 
   groupUsers(): Promise<Record<string, User[]>> {
-    const users = this.users();
-    const criterion = this.groupingCriterion();
+    const users: User[] = this.users();
+    const criterion: string = this.groupingCriterion();
+
+    if (users.length === 0) return Promise.resolve({});
 
     return new Promise((resolve, reject) => {
       const worker = new Worker(

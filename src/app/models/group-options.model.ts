@@ -8,3 +8,5 @@ export const GROUP_OPTIONS: GroupOption[] = [
   { key: 'alphabetical', value: 'First Name' },
   { key: 'nationality', value: 'Nationality' },
 ];
+
+export const DEFAULT_GROUP_OPTION_KEY = GROUP_OPTIONS[0].key;
