@@ -14,7 +14,6 @@ yarn-error.log
 # IDEs and editors
 .idea/
 .project
-.vscode
 .classpath
 .c9/
 *.launch
@@ -22,6 +21,7 @@ yarn-error.log
 *.sublime-workspace
 
 # Visual Studio Code
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -41,3 +41,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Test data
+public/testing/

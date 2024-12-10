@@ -1,17 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { User } from '../models/user.model';
-import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 import { ApiResult } from '../models/api-result.model';
+import { User } from '../models/user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
-  private apiUrl = 'https://randomuser.me/api'
+  private apiUrl = 'https://randomuser.me/api';
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Fetches 5000 mock users from the api
@@ -19,8 +19,16 @@ export class UsersService {
    * @returns {Observable<User[]>}
    */
   getUsers(page = 1): Observable<User[]> {
-    return this.httpClient
-      .get<ApiResult>(`${this.apiUrl}?results=5000&seed=awork&page=${page}`)
-      .pipe(map(apiResult => User.mapFromUserResult(apiResult.results)))
+    let fetchingUrl = this.httpClient.get<ApiResult>(
+      `${this.apiUrl}?results=10&seed=awork&page=${page}`,
+    );
+    if (!environment.production) {
+      fetchingUrl = this.httpClient.get<ApiResult>('testing/users-data.json');
+    }
+    return fetchingUrl.pipe(
+      map((apiResult) =>
+        User.mapFromUserResult(apiResult.results).slice(0, 100),
+      ),
+    );
   }
 }
