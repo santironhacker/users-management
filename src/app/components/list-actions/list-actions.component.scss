@@ -1,0 +1,18 @@
+@import "ease/ease-import.scss";
+
+:host {
+  .list-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+    margin: 0 auto;
+    max-width: 100%;
+    background-color: $color-yellow-900;
+    border-radius: 18px;
+    color: $gray-light-700;
+
+    @include font-size("xl");
+    @include shadow("s");
+  }
+}

@@ -10,5 +10,6 @@
     margin: 0 auto;
     max-width: 100%;
     padding: 12px;
+    @include shadow("xs");
   }
 }

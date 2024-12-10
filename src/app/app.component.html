@@ -2,4 +2,8 @@
   <img src="logo.svg" alt="awork logo" />
 </header>
 
-<app-user-group [userGroups]="userGroups()"></app-user-group>
+<main class="users-container">
+  <app-list-actions></app-list-actions>
+
+  <app-user-group [userGroups]="userGroups()"></app-user-group>
+</main>
