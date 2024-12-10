@@ -1,0 +1,12 @@
+@import "ease/ease-import.scss";
+
+:host {
+  .dropdown {
+    padding: 16px;
+    margin-left: 6px;
+    background-color: $color-teal-700;
+    color: black;
+    border: 2px solid $color-indigo;
+    border-radius: 18px;
+  }
+}

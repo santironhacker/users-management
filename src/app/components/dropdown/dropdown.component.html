@@ -1,0 +1,7 @@
+<select class="dropdown" (change)="onOptionSelected($event)">
+  @for (option of groupOptions; track $index) {
+    <option [value]="option.key">
+      {{ option.value }}
+    </option>
+  }
+</select>
