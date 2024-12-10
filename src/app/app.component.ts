@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  WritableSignal,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, OnInit, Signal, computed, inject } from '@angular/core';
 import { take } from 'rxjs';
 import { ListActionsComponent } from './components/list-actions/list-actions.component';
 import { UserGroupComponent } from './components/user-group/user-group.component';
@@ -22,21 +16,16 @@ export class AppComponent implements OnInit {
   usersService = inject(UsersService);
 
   users: User[] = [];
-  userGroups: WritableSignal<Record<string, User[]>> = signal({});
+  userGroups: Signal<Record<string, User[]>> = computed(() =>
+    this.usersService.userGroups(),
+  );
 
   ngOnInit(): void {
     this.usersService
       .getUsers()
       .pipe(take(1))
-      .subscribe((users) => {
-        this.updateGroups();
+      .subscribe((_users: User[]) => {
+        this.usersService.updateDisplayedUsers();
       });
-  }
-
-  private updateGroups(): void {
-    this.usersService.groupUsers().then((groups) => {
-      console.log('[app.component.ts] userGroups', groups);
-      this.userGroups.set(groups);
-    });
   }
 }

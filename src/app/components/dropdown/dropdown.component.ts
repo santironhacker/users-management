@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { GROUP_OPTIONS, GroupOption } from '../../models/group-options.model';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-dropdown',
@@ -9,9 +10,13 @@ import { GROUP_OPTIONS, GroupOption } from '../../models/group-options.model';
   styleUrl: './dropdown.component.scss',
 })
 export class DropdownComponent {
+  usersService = inject(UsersService);
+
   groupOptions: GroupOption[] = GROUP_OPTIONS;
+
   onOptionSelected(event: Event): void {
     const selectElement: HTMLSelectElement = event.target as HTMLSelectElement;
-    console.log('option', selectElement?.value);
+    this.usersService.updateSearchQuery(selectElement?.value);
+    this.usersService.updateDisplayedUsers();
   }
 }
