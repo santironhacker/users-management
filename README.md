@@ -36,3 +36,26 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+New content for the reviewers :D
+
+## Husky
+
+When committing new changes, files will be automatically scanned and overwritten by [prettier](https://prettier.io/). Please, do not skip this file formatting to ensure all collaborators share the same code style format.
+
+## Firebase
+
+- Ask your colleagues to be added to the [users-management-api](https://github.com/santironhacker/users-management) project in Firebase.
+- Run `firebase login`
+- Run `firebase use` to check you correctly have `* default (users-management-api)` as default project.
+
+### Firebase emulators
+
+- Build the project for production with `ng build -c production`.
+- Run the emulators with `firebase emulators:start` and check your changes.
+
+### Firebase deploy
+
+- Option 1: Deploy to a preview channel with `firebase hosting:channel:deploy CHANNEL_ID`. Check the URL returned by the Firebase CLI, which should look something like: `PROJECT_ID--CHANNEL_ID-RANDOM_HASH.web.app`.
+- Option 2: Deploy live to [https://users-management-api.web.app/](https://users-management-api.web.app/) with `firebase deploy --only hosting -m "Deploy message here"`.
+- Option 3: Deploy a preview version from `option 1` with `firebase hosting:clone users-management:CHANNEL_ID users-management:live`
