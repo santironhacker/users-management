@@ -12,7 +12,6 @@ import { EventsService } from './events.service';
   providedIn: 'root',
 })
 export class UsersService {
-  private apiUrl = 'https://randomuser.me/api';
   private groupingCriterion = signal<string>(DEFAULT_GROUP_OPTION_KEY);
   users = toSignal<User[], User[]>(this.getUsers(), {
     initialValue: [] as User[],
@@ -32,15 +31,15 @@ export class UsersService {
    */
   getUsers(page = 1): Observable<User[]> {
     let fetchingUrl = this.httpClient.get<ApiResult>(
-      `${this.apiUrl}?results=10&seed=awork&page=${page}`,
+      `${environment.apiUrl}?results=10&seed=awork&page=${page}`,
     );
     if (!environment.production) {
-      fetchingUrl = this.httpClient.get<ApiResult>('testing/users-data.json');
+      fetchingUrl = this.httpClient.get<ApiResult>(environment.apiUrl);
     }
     return fetchingUrl.pipe(
       delay(200),
       map((apiResult) =>
-        User.mapFromUserResult(apiResult.results).slice(0, 2000),
+        User.mapFromUserResult(apiResult.results).slice(0, 100),
       ),
       finalize(() => {
         this.updateDisplayedUsers();
@@ -76,7 +75,7 @@ export class UsersService {
     });
   }
 
-  updateDisplayedUsers(): void {
+  private updateDisplayedUsers(): void {
     this.isLoading.set(true);
     this.groupUsers().then((groups) => {
       console.log('[users.component.ts] userGroups', groups);

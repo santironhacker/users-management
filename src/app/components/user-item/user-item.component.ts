@@ -21,18 +21,18 @@ import { EventsService } from '../../services/events.service';
   styleUrl: './user-item.component.scss',
 })
 export class UserItemComponent {
+  eventsService = inject(EventsService);
+
   user = input.required<User>();
   allUsers = input.required<User[]>();
-
-  eventsService = inject(EventsService);
-  userClickStatus: WritableSignal<boolean> = signal<boolean>(false);
+  userItemClickedStatus: WritableSignal<boolean> = signal<boolean>(false);
 
   isDisplayUserDetails = toSignal<boolean, boolean>(
     this.eventsService.groupButtonClicked$.pipe(
-      combineLatestWith(toObservable(this.userClickStatus)),
-      map(
-        ([buttonClicked, userClickStatus]) => buttonClicked || userClickStatus,
-      ),
+      combineLatestWith(toObservable(this.userItemClickedStatus)),
+      map(([groupButtonClicked, userClickStatus]) => {
+        return groupButtonClicked || userClickStatus;
+      }),
     ),
     {
       initialValue: false,
@@ -40,7 +40,7 @@ export class UserItemComponent {
   );
 
   handleClickUser(): void {
-    this.userClickStatus.update((status) => !status);
+    this.userItemClickedStatus.update((status) => !status);
   }
 
   /**
