@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { delay, finalize, map, Observable } from 'rxjs';
+import { finalize, map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ApiResult } from '../models/api-result.model';
 import { DEFAULT_GROUP_OPTION_KEY } from '../models/group-options.model';
@@ -37,9 +37,8 @@ export class UsersService {
       fetchingUrl = this.httpClient.get<ApiResult>(environment.apiUrl);
     }
     return fetchingUrl.pipe(
-      delay(200),
       map((apiResult) =>
-        User.mapFromUserResult(apiResult.results).slice(0, 100),
+        User.mapFromUserResult(apiResult.results).slice(0, 5000),
       ),
       finalize(() => {
         this.updateDisplayedUsers();
@@ -78,7 +77,9 @@ export class UsersService {
   private updateDisplayedUsers(): void {
     this.isLoading.set(true);
     this.groupUsers().then((groups) => {
-      console.log('[users.component.ts] userGroups', groups);
+      if (!environment.production) {
+        console.log('[users.component.ts] userGroups', groups);
+      }
       this.userGroups.set(groups);
       this.eventsService.triggerGroupButtonClick();
       this.isLoading.set(false);

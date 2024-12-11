@@ -14,6 +14,7 @@ import {
   Subscription,
   tap,
 } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { CONSTANTS } from '../constants';
 import { EventsService } from '../services/events.service';
 
@@ -94,7 +95,9 @@ export class ScrollListDirective implements OnInit, OnDestroy {
       scrollPosition > scrollHeight - CONSTANTS.SCROLL.THRESHOLD_TRIGGER &&
       this.maxNumber() < this.listLength()
     ) {
-      console.log('%c ' + 'LoadNextPage', 'color: green; font-weight:bold');
+      if (!environment.production) {
+        console.log('%c ' + 'LoadNextPage', 'color: green; font-weight:bold');
+      }
       this.loadNextPage();
     }
 
@@ -102,7 +105,9 @@ export class ScrollListDirective implements OnInit, OnDestroy {
       scrollPosition < CONSTANTS.SCROLL.THRESHOLD_TRIGGER &&
       this.maxNumber() > this.doubleThanItemsPerPage()
     ) {
-      console.log('%c ' + 'LoadPreviousPage', 'color: red; font-weight:bold');
+      if (!environment.production) {
+        console.log('%c ' + 'LoadPreviousPage', 'color: red; font-weight:bold');
+      }
       this.loadPreviousPage();
     }
   }
