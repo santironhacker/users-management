@@ -8,7 +8,7 @@
   @if (!isLoading()) {
     <app-user-group
       [userGroups]="userGroups()"
-      [allUsers]="allUsers()"
+      [filteredUsers]="filteredUsers()"
     ></app-user-group>
   } @else {
     <app-loader-text></app-loader-text>

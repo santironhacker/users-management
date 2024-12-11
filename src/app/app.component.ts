@@ -22,7 +22,9 @@ import { UsersService } from './services/users.service';
 export class AppComponent {
   usersService = inject(UsersService);
 
-  allUsers: Signal<User[]> = computed(() => this.usersService.users());
+  filteredUsers: Signal<User[]> = computed(() =>
+    this.usersService.filteredUsers(),
+  );
   userGroups: Signal<Record<string, User[]>> = computed(() =>
     this.usersService.userGroups(),
   );

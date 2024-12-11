@@ -2,8 +2,11 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   input,
+  InputSignal,
+  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -15,6 +18,7 @@ import { AddressPipe } from '../../pipes/address.pipe';
 import { GoogleMapsPipe } from '../../pipes/google-maps.pipe';
 import { NationalitiesCountPipe } from '../../pipes/nationalities-count.pipe';
 import { EventsService } from '../../services/events.service';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-user-item',
@@ -26,13 +30,14 @@ import { EventsService } from '../../services/events.service';
 })
 export class UserItemComponent {
   CONSTANTS = CONSTANTS;
-  eventsService = inject(EventsService);
+  usersService: UsersService = inject(UsersService);
+  eventsService: EventsService = inject(EventsService);
 
-  user = input.required<User>();
-  allUsers = input.required<User[]>();
+  user: InputSignal<User> = input.required<User>();
+  allUsers: Signal<User[]> = computed(() => this.usersService.users());
   userItemClickedStatus: WritableSignal<boolean> = signal<boolean>(false);
 
-  isDisplayUserDetails = toSignal<boolean, boolean>(
+  isDisplayUserDetails: Signal<boolean> = toSignal<boolean, boolean>(
     this.eventsService.groupButtonClicked$.pipe(
       combineLatestWith(toObservable(this.userItemClickedStatus)),
       map(([groupButtonClicked, userClickStatus]) => {

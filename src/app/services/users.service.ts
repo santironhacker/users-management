@@ -1,8 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import {
+  computed,
+  Injectable,
+  Signal,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { finalize, map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { CONSTANTS } from '../constants';
 import { ApiResult } from '../models/api-result.model';
 import { DEFAULT_GROUP_OPTION_KEY } from '../models/group-options.model';
 import { User } from '../models/user.model';
@@ -12,12 +19,30 @@ import { EventsService } from './events.service';
   providedIn: 'root',
 })
 export class UsersService {
-  private groupingCriterion = signal<string>(DEFAULT_GROUP_OPTION_KEY);
+  private groupingCriterion: WritableSignal<string> = signal<string>(
+    DEFAULT_GROUP_OPTION_KEY,
+  );
+  private searchQuery: WritableSignal<string> = signal<string>(
+    CONSTANTS.EMPTY_STRING,
+  );
   users = toSignal<User[], User[]>(this.getUsers(), {
     initialValue: [] as User[],
   });
   userGroups: WritableSignal<Record<string, User[]>> = signal({});
   isLoading: WritableSignal<boolean> = signal(true);
+
+  filteredUsers: Signal<User[]> = computed(() => {
+    const query: string = this.searchQuery();
+    const users: User[] = this.users();
+
+    if (!query) return users;
+
+    return users.filter(
+      (user: User) =>
+        user.firstname?.toLowerCase().includes(query.toLowerCase()) ||
+        user.lastname?.toLowerCase().includes(query.toLowerCase()),
+    );
+  });
 
   constructor(
     private httpClient: HttpClient,
@@ -38,7 +63,7 @@ export class UsersService {
     }
     return fetchingUrl.pipe(
       map((apiResult) =>
-        User.mapFromUserResult(apiResult.results).slice(0, 5000),
+        User.mapFromUserResult(apiResult.results).slice(0, 100),
       ),
       finalize(() => {
         this.updateDisplayedUsers();
@@ -46,17 +71,22 @@ export class UsersService {
     );
   }
 
+  updateGroupingCriterion(criterion: string): void {
+    this.groupingCriterion.set(criterion);
+    this.updateDisplayedUsers();
+  }
+
   updateSearchQuery(query: string): void {
-    this.groupingCriterion.set(query);
+    this.searchQuery.set(query);
     this.updateDisplayedUsers();
   }
 
   groupUsers(): Promise<Record<string, User[]>> {
-    const users: User[] = this.users();
+    const users: User[] = this.filteredUsers();
     const criterion: string = this.groupingCriterion();
 
     return new Promise((resolve, reject) => {
-      const worker = new Worker(
+      const worker: Worker = new Worker(
         new URL('../group-users.worker.ts', import.meta.url),
       );
 

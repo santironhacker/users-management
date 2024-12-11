@@ -1,0 +1,10 @@
+<div class="search">
+  <input
+    class="search__input"
+    type="text"
+    [placeholder]="CONSTANTS.SEARCH.PLACEHOLDER"
+    [ngModel]="searchSubject$ | async"
+    (ngModelChange)="searchSubject$.next($event)"
+  />
+  <span class="search__icon">🔍</span>
+</div>

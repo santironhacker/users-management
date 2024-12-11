@@ -20,7 +20,7 @@ import { UserListComponent } from '../user-list/user-list.component';
 })
 export class UserGroupComponent {
   userGroups = input.required<Record<string, User[]>>();
-  allUsers = input.required<User[]>();
+  filteredUsers = input.required<User[]>();
 
   groupsLength = computed(() => Object.keys(this.userGroups()).length);
   minNumber = CONSTANTS.LIST.DEFAULT_MIN_NUMBER;

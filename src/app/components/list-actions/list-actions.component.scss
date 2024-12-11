@@ -4,6 +4,8 @@
   .list-actions {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
     justify-content: space-between;
     padding: 24px;
     margin: 0 auto;

@@ -16,6 +16,6 @@ export class DropdownComponent {
 
   onOptionSelected(event: Event): void {
     const selectElement: HTMLSelectElement = event.target as HTMLSelectElement;
-    this.usersService.updateSearchQuery(selectElement?.value);
+    this.usersService.updateGroupingCriterion(selectElement?.value);
   }
 }

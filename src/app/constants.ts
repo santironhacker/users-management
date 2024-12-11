@@ -14,4 +14,8 @@ export const CONSTANTS = {
     BEHAVIOR: 'instant',
     DEBOUNCE_TIME: 40,
   },
+  SEARCH: {
+    DEBOUNCE_TIME: 300,
+    PLACEHOLDER: 'Search by user name',
+  },
 };

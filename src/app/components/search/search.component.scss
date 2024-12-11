@@ -1,0 +1,40 @@
+@import "ease/ease-import.scss";
+
+:host {
+  .search {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+
+    &__input {
+      width: 100%;
+      padding: 10px 40px 10px 15px;
+      font-size: 16px;
+      border: 2px solid $gray-light-300;
+      border-radius: 25px;
+      outline: none;
+      transition:
+        border-color 0.3s,
+        box-shadow 0.3s;
+    }
+
+    &__input:focus {
+      border-color: $color-blue;
+      @include shadow("m");
+    }
+
+    &__input::placeholder {
+      color: $gray-light-500;
+      font-style: italic;
+    }
+
+    &__icon {
+      margin-left: 4px;
+      font-size: 22px;
+      pointer-events: none;
+    }
+  }
+}

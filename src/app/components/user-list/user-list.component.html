@@ -9,7 +9,7 @@
   @for (user of users(); track $index) {
     @if ($index >= minNumber && $index < maxNumber) {
       <span>{{ $index }}</span>
-      <app-user-item [user]="user" [allUsers]="users()" />
+      <app-user-item [user]="user" />
     }
   }
 </article>
