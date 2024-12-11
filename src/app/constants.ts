@@ -6,6 +6,7 @@ export const CONSTANTS = {
     DEFAULT_MAX_NUMBER: 20,
     USER_GROUPS_ITEMS_PER_PAGE: 6,
     DOUBLE: 2,
+    USERS_ITEMS_PER_PAGE: 20,
   },
   SCROLL: {
     TOP: 0,

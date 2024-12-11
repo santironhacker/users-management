@@ -1,5 +1,15 @@
-<article class="user-list">
+<article
+  class="user-list"
+  appScrollList
+  [listLength]="usersLength()"
+  [(minNumber)]="minNumber"
+  [(maxNumber)]="maxNumber"
+  [itemsPerPage]="itemsPerPage"
+>
   @for (user of users(); track $index) {
-    <app-user-item [user]="user" [allUsers]="users()" />
+    @if ($index >= minNumber && $index < maxNumber) {
+      <span>{{ $index }}</span>
+      <app-user-item [user]="user" [allUsers]="users()" />
+    }
   }
 </article>

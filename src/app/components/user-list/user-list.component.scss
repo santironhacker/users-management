@@ -11,5 +11,7 @@
     max-width: 100%;
     padding: 12px;
     @include shadow("xs");
+    max-height: 600px;
+    overflow-y: auto;
   }
 }
