@@ -1,10 +1,19 @@
 @if (allUsers().length > 0) {
-  <section class="user-group">
+  <section
+    class="user-group"
+    appScrollList
+    [listLength]="groupsLength()"
+    [(minNumber)]="minNumber"
+    [(maxNumber)]="maxNumber"
+    [itemsPerPage]="itemsPerPage"
+  >
     @for (group of userGroups() | keyvalue; track $index) {
-      <div class="user-group__element">
-        <h3 class="user-group__element__header">{{ group.key }}</h3>
-        <app-user-list [users]="group.value" />
-      </div>
+      @if ($index >= minNumber && $index < maxNumber) {
+        <div class="user-group__element">
+          <h3 class="user-group__element__header">{{ group.key }}</h3>
+          <app-user-list [users]="group.value" />
+        </div>
+      }
     }
   </section>
 } @else {
