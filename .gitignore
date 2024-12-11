@@ -44,3 +44,7 @@ Thumbs.db
 
 # Test data
 public/testing/
+
+#Firebase
+firebase-debug.log
+.firebase/

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "users-management-api"
+  },
+  "targets": {
+    "users-management-api": {
+      "hosting": {
+        "users-management": [
+          "users-management-api"
+        ]
+      }
+    }
+  }
+}
