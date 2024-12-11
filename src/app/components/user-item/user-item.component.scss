@@ -69,5 +69,18 @@
     &__details {
       padding: 12px;
     }
+
+    &__actions {
+      padding: 12px;
+    }
+
+    span:nth-child(1) {
+      font-weight: 900;
+    }
+
+    span:nth-child(2) {
+      color: black;
+      margin-left: 4px;
+    }
   }
 }

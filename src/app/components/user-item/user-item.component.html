@@ -17,5 +17,26 @@
       <span>Username:</span>
       <span>{{ user().login?.username }}</span>
     </p>
+    <p>
+      <span>Registered:</span>
+      <span>{{ user().dob?.date | date }}</span>
+    </p>
+    <p>
+      <span>Age:</span>
+      <span>{{ user().dob?.age }}</span>
+    </p>
+    <p>
+      <span>Address:</span>
+      <span
+        ><a [href]="user() | googleMaps" target="_blank">{{
+          user() | address
+        }}</a></span
+      >
+    </p>
+  </div>
+  <div class="user-expanded__actions">
+    <p>Quick Actions</p>
+    <button>Edit</button>
+    <button>Delete</button>
   </div>
 </div>

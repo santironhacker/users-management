@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   inject,
@@ -8,11 +9,14 @@ import {
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { combineLatestWith, map } from 'rxjs';
 import { User } from '../../models/user.model';
+import { AddressPipe } from '../../pipes/address.pipe';
+import { GoogleMapsPipe } from '../../pipes/google-maps.pipe';
 import { EventsService } from '../../services/events.service';
 
 @Component({
   selector: 'app-user-item',
   standalone: true,
+  imports: [CommonModule, AddressPipe, GoogleMapsPipe],
   templateUrl: './user-item.component.html',
   styleUrl: './user-item.component.scss',
 })
