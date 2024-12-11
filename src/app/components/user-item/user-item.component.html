@@ -1,13 +1,21 @@
-<div class="user-item">
+<div class="user-item" (click)="handleClickUser()">
   <img class="user-item__image" [src]="user().imageSrc" />
 
-  <p class="user-item__name">
-    {{ user().firstname }} {{ user().lastname }}
-  </p>
+  <p class="user-item__name">{{ user().firstname }} {{ user().lastname }}</p>
 
   <p class="user-item__email">{{ user().email }}</p>
 
   <p class="user-item__phone">{{ user().phone }}</p>
 
   <p class="user-item__nat">{{ user().nat }} ({{ nationalitiesCount }})</p>
+</div>
+
+<div class="user-expanded" [class.expanded]="isDisplayUserDetails()">
+  <div class="user-expanded__details">
+    <p>User details</p>
+    <p>
+      <span>Username:</span>
+      <span>{{ user().login?.username }}</span>
+    </p>
+  </div>
 </div>

@@ -51,4 +51,23 @@
       cursor: pointer;
     }
   }
+
+  .user-expanded {
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      max-height 0.3s ease,
+      padding 0.3s ease;
+    padding: 0;
+
+    &.expanded {
+      max-height: 500px;
+      padding: 12px;
+      display: flex;
+    }
+
+    &__details {
+      padding: 12px;
+    }
+  }
 }
