@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { delay, map, Observable } from 'rxjs';
+import { delay, finalize, map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ApiResult } from '../models/api-result.model';
 import { DEFAULT_GROUP_OPTION_KEY } from '../models/group-options.model';
@@ -42,6 +42,9 @@ export class UsersService {
       map((apiResult) =>
         User.mapFromUserResult(apiResult.results).slice(0, 2000),
       ),
+      finalize(() => {
+        this.updateDisplayedUsers();
+      }),
     );
   }
 

@@ -1,5 +1,4 @@
-import { Component, OnInit, Signal, computed, inject } from '@angular/core';
-import { take } from 'rxjs';
+import { Component, Signal, computed, inject } from '@angular/core';
 import { ListActionsComponent } from './components/list-actions/list-actions.component';
 import { LoaderTextComponent } from './components/loaders/loader-text/loader-text.component';
 import { UserGroupComponent } from './components/user-group/user-group.component';
@@ -13,7 +12,7 @@ import { UsersService } from './services/users.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   usersService = inject(UsersService);
 
   allUsers: Signal<User[]> = computed(() => this.usersService.users());
@@ -21,13 +20,4 @@ export class AppComponent implements OnInit {
     this.usersService.userGroups(),
   );
   isLoading: Signal<boolean> = computed(() => this.usersService.isLoading());
-
-  ngOnInit(): void {
-    this.usersService
-      .getUsers()
-      .pipe(take(1))
-      .subscribe((_users: User[]) => {
-        this.usersService.updateDisplayedUsers();
-      });
-  }
 }

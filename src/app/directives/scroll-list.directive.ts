@@ -1,4 +1,11 @@
-import { Directive, ElementRef, input, model } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  input,
+  model,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
   combineLatestWith,
   debounceTime,
@@ -17,7 +24,7 @@ import { EventsService } from '../services/events.service';
     '(scroll)': 'onScroll($event)',
   },
 })
-export class ScrollListDirective {
+export class ScrollListDirective implements OnInit, OnDestroy {
   private scrollSubscription!: Subscription;
   private resetScrollVariablesSubscription!: Subscription;
   private scrollEventSubject: Subject<Event> = new Subject<Event>();
