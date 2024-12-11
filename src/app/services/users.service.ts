@@ -56,15 +56,13 @@ export class UsersService {
    */
   getUsers(page = 1): Observable<User[]> {
     let fetchingUrl = this.httpClient.get<ApiResult>(
-      `${environment.apiUrl}?results=10&seed=awork&page=${page}`,
+      `${environment.apiUrl}?results=5000&seed=awork&page=${page}`,
     );
     if (!environment.production) {
       fetchingUrl = this.httpClient.get<ApiResult>(environment.apiUrl);
     }
     return fetchingUrl.pipe(
-      map((apiResult) =>
-        User.mapFromUserResult(apiResult.results).slice(0, 100),
-      ),
+      map((apiResult) => User.mapFromUserResult(apiResult.results)),
       finalize(() => {
         this.updateDisplayedUsers();
       }),
