@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
   input,
@@ -16,6 +17,7 @@ import { EventsService } from '../../services/events.service';
 @Component({
   selector: 'app-user-item',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, AddressPipe, GoogleMapsPipe],
   templateUrl: './user-item.component.html',
   styleUrl: './user-item.component.scss',
@@ -54,5 +56,13 @@ export class UserItemComponent {
     return this.allUsers().reduce((acc, user) => {
       return user.nat === this.user().nat ? acc + 1 : acc;
     }, 0);
+  }
+
+  /**
+   * Gets an image source url with a query string to prevent caching
+   * Note: Do not remove the query string.
+   */
+  get imageSrc(): string {
+    return `${this.user().image}?id=${this.user().login?.uuid}`;
   }
 }

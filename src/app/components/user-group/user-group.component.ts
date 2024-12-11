@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+} from '@angular/core';
 import { CONSTANTS } from '../../constants';
 import { ScrollListDirective } from '../../directives/scroll-list.directive';
 import { User } from '../../models/user.model';
@@ -8,6 +13,7 @@ import { UserListComponent } from '../user-list/user-list.component';
 @Component({
   selector: 'app-user-group',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, UserListComponent, ScrollListDirective],
   templateUrl: './user-group.component.html',
   styleUrl: './user-group.component.scss',

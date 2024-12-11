@@ -1,4 +1,10 @@
-import { Component, Signal, computed, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Signal,
+  computed,
+  inject,
+} from '@angular/core';
 import { ListActionsComponent } from './components/list-actions/list-actions.component';
 import { LoaderTextComponent } from './components/loaders/loader-text/loader-text.component';
 import { UserGroupComponent } from './components/user-group/user-group.component';
@@ -8,6 +14,7 @@ import { UsersService } from './services/users.service';
 @Component({
   selector: 'app-root',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [UserGroupComponent, ListActionsComponent, LoaderTextComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

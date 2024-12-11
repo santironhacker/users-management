@@ -46,14 +46,6 @@ export class User {
   }
 
   /**
-   * Gets an image source url with a query string to prevent caching
-   * Note: Do not remove the query string.
-   */
-  get imageSrc(): string {
-    return `${this.image}?id=${this.login?.uuid}`;
-  }
-
-  /**
    * Maps the api result to an array of User objects
    * @param {UserResult[]} userResults
    * @returns {User[]}
@@ -66,7 +58,7 @@ export class User {
           lastname: user.name.last,
           email: user.email,
           phone: user.phone,
-          image: user.picture.medium,
+          image: user.picture.thumbnail,
           nat: user.nat,
           login: user.login,
           dob: user.dob,
