@@ -10,3 +10,4 @@ export const GROUP_OPTIONS: GroupOption[] = [
 ];
 
 export const DEFAULT_GROUP_OPTION_KEY = GROUP_OPTIONS[0].key;
+export const DEFAULT_GROUP_OPTION_VALUE = GROUP_OPTIONS[0].value;

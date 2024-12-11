@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map, Observable } from 'rxjs';
+import { delay, map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ApiResult } from '../models/api-result.model';
 import { DEFAULT_GROUP_OPTION_KEY } from '../models/group-options.model';
@@ -12,11 +12,12 @@ import { User } from '../models/user.model';
 })
 export class UsersService {
   private apiUrl = 'https://randomuser.me/api';
-  private users = toSignal<User[], User[]>(this.getUsers(), {
+  private groupingCriterion = signal<string>(DEFAULT_GROUP_OPTION_KEY);
+  users = toSignal<User[], User[]>(this.getUsers(), {
     initialValue: [] as User[],
   });
-  private groupingCriterion = signal<string>(DEFAULT_GROUP_OPTION_KEY);
   userGroups: WritableSignal<Record<string, User[]>> = signal({});
+  isLoading: WritableSignal<boolean> = signal(true);
 
   constructor(private httpClient: HttpClient) {}
 
@@ -33,6 +34,7 @@ export class UsersService {
       fetchingUrl = this.httpClient.get<ApiResult>('testing/users-data.json');
     }
     return fetchingUrl.pipe(
+      delay(200),
       map((apiResult) =>
         User.mapFromUserResult(apiResult.results).slice(0, 100),
       ),
@@ -47,8 +49,6 @@ export class UsersService {
   groupUsers(): Promise<Record<string, User[]>> {
     const users: User[] = this.users();
     const criterion: string = this.groupingCriterion();
-
-    if (users.length === 0) return Promise.resolve({});
 
     return new Promise((resolve, reject) => {
       const worker = new Worker(
@@ -70,9 +70,11 @@ export class UsersService {
   }
 
   updateDisplayedUsers(): void {
+    this.isLoading.set(true);
     this.groupUsers().then((groups) => {
       console.log('[users.component.ts] userGroups', groups);
       this.userGroups.set(groups);
+      this.isLoading.set(false);
     });
   }
 }

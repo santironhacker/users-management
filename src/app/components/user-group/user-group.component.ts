@@ -12,4 +12,5 @@ import { UserListComponent } from '../user-list/user-list.component';
 })
 export class UserGroupComponent {
   userGroups = input.required<Record<string, User[]>>();
+  allUsers = input.required<User[]>();
 }

@@ -1,8 +1,14 @@
-<section class="user-group">
-  @for (group of userGroups() | keyvalue; track $index) {
-    <div class="user-group__element">
-      <h3 class="user-group__element__header">{{ group.key }}</h3>
-      <app-user-list [users]="group.value" />
-    </div>
-  }
-</section>
+@if (allUsers().length > 0) {
+  <section class="user-group">
+    @for (group of userGroups() | keyvalue; track $index) {
+      <div class="user-group__element">
+        <h3 class="user-group__element__header">{{ group.key }}</h3>
+        <app-user-list [users]="group.value" />
+      </div>
+    }
+  </section>
+} @else {
+  <div class="no_results">
+    <span>No results found</span>
+  </div>
+}

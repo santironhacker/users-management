@@ -3,8 +3,6 @@
 :host {
   .user-group {
     padding: 12px;
-    background: linear-gradient(135deg, #e0d7fe 0%, #efdaf6 53%, #fdf3e9 100%);
-    background-color: #e0d7fe;
 
     &__element {
       display: flex;
@@ -22,5 +20,9 @@
         border-top-right-radius: 18px;
       }
     }
+  }
+
+  .no_results {
+    margin: 42px;
   }
 }

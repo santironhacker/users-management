@@ -3,7 +3,14 @@
 </header>
 
 <main class="users-container">
-  <app-list-actions></app-list-actions>
+  <app-list-actions class="users-container__list_actions"></app-list-actions>
 
-  <app-user-group [userGroups]="userGroups()"></app-user-group>
+  @if (!isLoading()) {
+    <app-user-group
+      [userGroups]="userGroups()"
+      [allUsers]="allUsers()"
+    ></app-user-group>
+  } @else {
+    <app-loader-text></app-loader-text>
+  }
 </main>

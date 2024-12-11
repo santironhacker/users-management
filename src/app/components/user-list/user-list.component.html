@@ -1,11 +1,5 @@
-@if (users().length) {
-  <article class="user-list">
-    @for (user of users(); track $index) {
-      <app-user-item [user]="user" [allUsers]="users()" />
-    }
-  </article>
-} @else {
-  <article class="user-list">
-    <p>Loading…</p>
-  </article>
-}
+<article class="user-list">
+  @for (user of users(); track $index) {
+    <app-user-item [user]="user" [allUsers]="users()" />
+  }
+</article>
