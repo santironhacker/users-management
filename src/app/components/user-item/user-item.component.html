@@ -1,5 +1,5 @@
 <div class="user-item" (click)="handleClickUser()">
-  <img class="user-item__image" [src]="imageSrc" />
+  <img alt="user-item__image" [src]="imageSrc" />
 
   <p class="user-item__name">{{ user().firstname }} {{ user().lastname }}</p>
 
@@ -7,7 +7,11 @@
 
   <p class="user-item__phone">{{ user().phone }}</p>
 
-  <p class="user-item__nat">{{ user().nat }} ({{ nationalitiesCount }})</p>
+  <p class="user-item__nat">
+    {{ user().nat }} ({{
+      allUsers() | nationalitiesCount: user().nat || CONSTANTS.EMPTY_STRING
+    }})
+  </p>
 </div>
 
 <div class="user-expanded" [class.expanded]="isDisplayUserDetails()">

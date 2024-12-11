@@ -9,20 +9,23 @@ import {
 } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { combineLatestWith, map } from 'rxjs';
+import { CONSTANTS } from '../../constants';
 import { User } from '../../models/user.model';
 import { AddressPipe } from '../../pipes/address.pipe';
 import { GoogleMapsPipe } from '../../pipes/google-maps.pipe';
+import { NationalitiesCountPipe } from '../../pipes/nationalities-count.pipe';
 import { EventsService } from '../../services/events.service';
 
 @Component({
   selector: 'app-user-item',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, AddressPipe, GoogleMapsPipe],
+  imports: [CommonModule, AddressPipe, GoogleMapsPipe, NationalitiesCountPipe],
   templateUrl: './user-item.component.html',
   styleUrl: './user-item.component.scss',
 })
 export class UserItemComponent {
+  CONSTANTS = CONSTANTS;
   eventsService = inject(EventsService);
 
   user = input.required<User>();
@@ -43,19 +46,6 @@ export class UserItemComponent {
 
   handleClickUser(): void {
     this.userItemClickedStatus.update((status) => !status);
-  }
-
-  /**
-   * Get the count of users with same nationality
-   */
-  get nationalitiesCount(): number {
-    if (!this.allUsers().length) {
-      return 0;
-    }
-
-    return this.allUsers().reduce((acc, user) => {
-      return user.nat === this.user().nat ? acc + 1 : acc;
-    }, 0);
   }
 
   /**
